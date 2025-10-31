@@ -1,0 +1,569 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Análisis Estadístico - JPD Lavalle</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #0a2a6b; color: white; padding: 10px; font-size: 14px; font-weight: bold; margin-bottom: 20px; text-align: center; }
+        .chart-container { width: 100%; min-height: 300px; margin-bottom: 20px; }
+        h1 { font-size: 20px; text-align: center; color: #333; }
+        h2 { font-size: 18px; margin-top: 25px; text-align: center; color: #333; }
+        p { text-align: center; color: #555; }
+        .date-range { color: #555; margin-bottom: 30px; }
+        
+        /* Ajuste para centrar el resumen */
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; justify-content: center; }
+        .summary-box { border: 1px solid #ddd; padding: 15px; border-radius: 5px; background-color: #f9f9f9; text-align: center;}
+        
+        .summary-title { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+        .summary-value { font-size: 14px; }
+        .variation { font-weight: bold; margin-top: 10px; }
+        .variation-up { color: #d32f2f; }
+        .variation-down { color: #388e3c; }
+        .variation-stable { color: #757575; }
+        .table-container { overflow-x: auto; margin-bottom: 25px; }
+        
+        /* Ajuste para tablas más compactas */
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        th, td { border: 1px solid #ddd; padding: 5px; text-align: left; font-size: 11px; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tbody tr:hover { background-color: #e0f2f1; cursor: pointer; }
+        .conclusion { font-style: italic; color: #555; text-align: center; padding: 10px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-top: 10px; font-size: 14px; }
+        .conclusion strong { color: #1565c0; }
+        .footer { font-size: 10px; color: #777; margin-top: 40px; }
+        
+        /* Lógica Termográfica */
+        .muy-caliente { background-color: #f44336; color: white; font-weight: bold; }
+        .caliente { background-color: #ff9800; color: white; font-weight: bold; }
+        .frio { background-color: #48b8d4; color: white; font-weight: bold; }
+        .neutro { background-color: #ffeb3b; font-weight: bold; }
+
+        /* Media query para móviles */
+        @media (max-width: 600px) {
+          .summary-grid { grid-template-columns: 1fr; }
+          h1 { font-size: 16px; }
+          .container { padding: 10px; }
+          .chart-container { min-height: 250px; }
+          th, td { padding: 4px; font-size: 10px; }
+        }
+      </style>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllCharts);
+
+        function drawAllCharts() {
+          drawChartDelitos();
+          drawChartDias();
+          drawChartHorario();
+          drawChartDependencias();
+          drawChartLugares();
+        }
+
+        function drawChartDelitos() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Diez Días 1', 'Diez Días 2'],
+            ['Robo A/F', 1, 0],
+['Robo', 0, 1]
+          ]);
+          var options = {
+            title: 'Análisis estadístico de los Delitos',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#1565c0', '#42a5f5'],
+            hAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.BarChart(document.getElementById('chart_delitos'));
+          chart.draw(data, options);
+        }
+
+        function drawChartDias() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Diez Días 1', 'Diez Días 2'],
+            ['Lunes', 1, 0],
+['Sábado', 0, 1]
+          ]);
+          var options = {
+            title: 'Análisis por Día de la Semana',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#388e3c', '#81c784'],
+            curveType: 'function'
+          };
+          var chart = new google.visualization.LineChart(document.getElementById('chart_dias'));
+          chart.draw(data, options);
+        }
+
+        function drawChartHorario() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Diez Días 1', 'Diez Días 2'],
+            ['🌙 Madrugada (00:00 - 05:59)', 1, 0],
+['🌆 Noche (18:00 - 23:59)', 0, 1]
+          ]);
+          var options = {
+            title: 'Análisis por Rango Horario',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#ff8f00', '#ffb300'],
+            isStacked: true,
+            vAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.ColumnChart(document.getElementById('chart_horario'));
+          chart.draw(data, options);
+        }
+
+        function drawChartDependencias() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Diez Días 1', 'Diez Días 2'],
+            ['Cria_17', 1, 1]
+          ]);
+          var options = {
+            title: 'Análisis por Dependencia',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#d32f2f', '#e57373'],
+            hAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.BarChart(document.getElementById('chart_dependencias'));
+          chart.draw(data, options);
+        }
+        
+        function drawChartLugares() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Diez Días 1', 'Diez Días 2'],
+            ['Domicilio', 1, 1]
+          ]);
+          var options = {
+            title: 'Análisis por Tipo de Lugar',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#6a1b9a', '#9575cd'],
+            hAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.BarChart(document.getElementById('chart_lugares'));
+          chart.draw(data, options);
+        }
+      </script>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Análisis Estadístico - JPD Lavalle</h1>
+        <h2>📅 COMPARATIVA DEL PERÍODO</h2>
+        <p class="date-range">Diez Días del 17/10/2025 al 23/10/2025 Vs. Diez Días del 24/10/2025 al 30/10/2025</p>
+        
+        
+    <div class="summary-grid">
+      <div class="summary-box">
+        <div class="summary-title">Total Delitos</div>
+        <div class="summary-value">Diez Días 1: 1 | Diez Días 2: 1</div>
+        <div class="variation variation-stable">· 0% (0)</div>
+      </div>
+      <div class="summary-box">
+      <div class="summary-title">Indicador de Estabilidad</div>
+      <div class="summary-value">Baja</div>
+      <div class="variation">La serie es irregular entre días; conviene monitorear picos y valles.</div>
+      <div style="font-size:11px;color:#555;margin-top:6px;">(CV=265% | ID=1.00 | fuera de control: 0/7 (límites ~ 0.0–1.3))</div>
+      <div style="font-size:11px;color:#777;margin-top:2px;">Método: CV (coeficiente de variación), ID (índice de dispersión) y control ±3σ (límites basados en Poisson).</div>
+</div>
+
+  
+        <div class="summary-box">
+          <div class="summary-title">Guaymallén Oeste</div>
+          <div class="summary-value">Diez Días 1: 0 | Diez Días 2: 0</div>
+          <div class="variation variation-stable">· 0%</div>
+        </div>
+      
+        <div class="summary-box">
+          <div class="summary-title">Guaymallén Este</div>
+          <div class="summary-value">Diez Días 1: 0 | Diez Días 2: 0</div>
+          <div class="variation variation-stable">· 0%</div>
+        </div>
+      
+        <div class="summary-box">
+          <div class="summary-title">Las Heras</div>
+          <div class="summary-value">Diez Días 1: 0 | Diez Días 2: 0</div>
+          <div class="variation variation-stable">· 0%</div>
+        </div>
+      
+        <div class="summary-box">
+          <div class="summary-title">Lavalle</div>
+          <div class="summary-value">Diez Días 1: 1 | Diez Días 2: 1</div>
+          <div class="variation variation-stable">· 0% (0)</div>
+        </div>
+      </div>
+        
+        
+    <div class="header">📊 ANÁLISIS POR TIPO DE DELITO</div>
+    <div id="chart_delitos" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+           <tr>
+            <th>Categoría</th>
+            <th>Diez Días 1</th>
+            <th>Diez Días 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Robo A/F</td>
+              <td>1</td>
+              <td>0</td>
+              <td class="frio">▼ 100% (-1)</td>
+            </tr><tr>
+              <td>Robo</td>
+              <td>0</td>
+              <td>1</td>
+              <td class="caliente">nuevo registro (+1)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conclusion">El análisis de delitos muestra una tendencia · 0%. El mayor aumento se registró en <strong>Robo (nuevo registro (+1))</strong>. La mayor disminución fue en <strong>Robo A/F (▼ 100% (-1))</strong>.</div>
+  
+        
+    <div class="header">📅 ANÁLISIS POR DÍA DE LA SEMANA</div>
+    <div id="chart_dias" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+           <tr>
+            <th>Categoría</th>
+            <th>Diez Días 1</th>
+            <th>Diez Días 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Lunes</td>
+              <td>1</td>
+              <td>0</td>
+              <td class="frio">▼ 100% (-1)</td>
+            </tr><tr>
+              <td>Sábado</td>
+              <td>0</td>
+              <td>1</td>
+              <td class="caliente">nuevo registro (+1)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conclusion">El análisis de días de la semana muestra una tendencia · 0%. El mayor aumento se registró en <strong>Sábado (nuevo registro (+1))</strong>. La mayor disminución fue en <strong>Lunes (▼ 100% (-1))</strong>.</div>
+  
+        
+    <div class="header">🕒 ANÁLISIS POR RANGO HORARIO</div>
+    <div id="chart_horario" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+           <tr>
+            <th>Categoría</th>
+            <th>Diez Días 1</th>
+            <th>Diez Días 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>🌙 Madrugada (00:00 - 05:59)</td>
+              <td>1</td>
+              <td>0</td>
+              <td class="frio">▼ 100% (-1)</td>
+            </tr><tr>
+              <td>🌆 Noche (18:00 - 23:59)</td>
+              <td>0</td>
+              <td>1</td>
+              <td class="caliente">nuevo registro (+1)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conclusion">El análisis de rangos horarios muestra una tendencia · 0%. El mayor aumento se registró en <strong>🌆 Noche (18:00 - 23:59) (nuevo registro (+1))</strong>. La mayor disminución fue en <strong>🌙 Madrugada (00:00 - 05:59) (▼ 100% (-1))</strong>.</div>
+  
+        
+    <div class="header">📍 ANÁLISIS POR DEPENDENCIA</div>
+    <div id="chart_dependencias" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+           <tr>
+            <th>Categoría</th>
+            <th>Diez Días 1</th>
+            <th>Diez Días 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Cria_17</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="neutro">· 0% (0)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conclusion">El análisis de dependencias muestra una tendencia · 0%. </div>
+  
+        
+    <div class="header">🏠 ANÁLISIS POR TIPO DE LUGAR</div>
+    <div id="chart_lugares" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+           <tr>
+            <th>Categoría</th>
+            <th>Diez Días 1</th>
+            <th>Diez Días 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Domicilio</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="neutro">· 0% (0)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conclusion">El análisis de tipos de lugar muestra una tendencia · 0%. </div>
+  
+
+        <!-- NUEVO: TABLA POR JEFATURA/GRUPO -->
+        
+    <div class="header">📌 Resumen por Jefatura</div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Jefatura</th>
+            <th>Diez Días 1</th>
+            <th>Diez Días 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td>Guaymallén Oeste</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="variation-stable">· 0%</td>
+      </tr>
+      <tr>
+        <td>Guaymallén Este</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="variation-stable">· 0%</td>
+      </tr>
+      <tr>
+        <td>Las Heras</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="variation-stable">· 0%</td>
+      </tr>
+      <tr>
+        <td>Lavalle</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="variation-stable">· 0% (0)</td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+
+        <hr style="border: 1px solid #eee;">
+        <div class="conclusion">
+          <p><strong>🏁 CONCLUSIÓN GENERAL:</strong> En conclusión, el período muestra un/a **estabilidad (· 0% (0))** en la totalidad de hechos delictivos. Se recomienda prestar especial atención a las tendencias identificadas en los análisis detallados.</p>
+          
+  <div class="header">Diagnóstico automático</div>
+  <div style="border:1px solid #ddd;border-radius:8px;padding:14px;background:#fff;margin:10px 0;">
+    <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px">
+        <div style="font-weight:bold;font-size:14px;margin-bottom:6px;">Indicador de Estabilidad: Baja</div>
+        <div style="font-size:12px;color:#555;">CV=265% | ID=1.00 | fuera de control: 0/7 (límites ~ 0.0–1.3)</div>
+      </div>
+      <div style="flex:1;min-width:300px">
+    <div style="position:relative;margin-top:4px;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+        
+          <div style="
+           background:#e53935;
+           color:#fff;
+           border-radius:8px;
+           padding:8px 10px;
+           text-align:center;
+           border:1px solid rgba(0,0,0,0.2);
+           box-shadow:0 0 0 2px #000 inset;font-weight:bold;
+          ">
+  Baja
+</div>
+
+        
+          <div style="
+           background:#f39c12;
+           color:#fff;
+           border-radius:8px;
+           padding:8px 10px;
+           text-align:center;
+           border:1px solid #b36b00;
+           
+          ">
+  Media
+</div>
+
+        
+          <div style="
+           background:#43a047;
+           color:#fff;
+           border-radius:8px;
+           padding:8px 10px;
+           text-align:center;
+           border:1px solid rgba(0,0,0,0.2);
+           
+          ">
+  Alta
+</div>
+
+        
+          <div style="
+           background:#1e88e5;
+           color:#fff;
+           border-radius:8px;
+           padding:8px 10px;
+           text-align:center;
+           border:1px solid rgba(0,0,0,0.2);
+           
+          ">
+  Muy Alta
+</div>
+
+        
+      </div>
+      <div style="
+        position:absolute; left: calc(12.5% - 10px); top:-12px;
+        width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent;
+        border-bottom: 12px solid #424242;
+      "></div>
+    </div>
+  </div>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:#666;">
+      <strong>Método:</strong> Coef. de Variación (CV), Índice de Dispersión (ID) y control Poisson (±3σ).
+      <br><em>CV</em>: variabilidad relativa; <em>ID</em>≈1 sugiere patrón Poisson; “fuera de control” = días fuera de ±3σ.
+    </div>
+  </div>
+          
+    <div class="header">Distribución semanal (último período)</div>
+    <div style="border:1px solid #ddd;border-radius:8px;padding:12px;background:#fff;margin:10px 0;">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+        
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Domingo: 0"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 0.15);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Dom</div>
+      </div>
+    
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Lunes: 0"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 0.15);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Lun</div>
+      </div>
+    
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Martes: 0"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 0.15);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Mar</div>
+      </div>
+    
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Miércoles: 0"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 0.15);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Mié</div>
+      </div>
+    
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Jueves: 0"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 0.15);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Jue</div>
+      </div>
+    
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Viernes: 0"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 0.15);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Vie</div>
+      </div>
+    
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div title="Sábado: 1"
+             style="width:40px;height:24px;border-radius:6px;background:rgba(30,136,229, 1);border:1px solid rgba(0,0,0,0.08);"></div>
+        <div style="font-size:10px;color:#444;">Sáb</div>
+      </div>
+    
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#666;text-align:center;">
+        Intensidad proporcional a los conteos del último período (s2).
+      </div>
+    </div>
+  
+          
+  <div class="header">Sugerencias del S.A.T</div>
+  <div style="border:1px solid #ddd;border-radius:8px;padding:14px;background:#fff;margin:10px 0;">
+    <div style="font-size:13px;color:#333;margin-bottom:8px;">
+      <b>Lectura:</b> Irregularidad alta entre días. Sugerimos monitorear picos y valles, reforzar ventanas críticas y aplicar medidas situacionales en los lugares recurrentes.
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px; margin-bottom:8px;">
+      <div>
+        <div style="font-size:12px;color:#555;margin-bottom:4px;">Días destacados</div>
+        <span style="display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px;">Sábado</span> <span style="display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px;">Lunes</span>
+      </div>
+      <div>
+        <div style="font-size:12px;color:#555;margin-bottom:4px;">Rangos horarios destacados</div>
+        <span style="display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px;">🌆 Noche (18:00 - 23:59)</span> <span style="display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px;">🌙 Madrugada (00:00 - 05:59)</span>
+      </div>
+      <div>
+        <div style="font-size:12px;color:#555;margin-bottom:4px;">Dependencias destacadas</div>
+        <span style="display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px;">Cria_17</span>
+      </div>
+      <div>
+        <div style="font-size:12px;color:#555;margin-bottom:4px;">Tipos de lugar destacados</div>
+        <span style="display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e3a8a;padding:4px 8px;border-radius:999px;font-size:11px;margin:2px;">Domicilio</span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:#333;margin-top:6px;">
+      <b>Sugerencias:</b>
+      <ul style="list-style:none;margin:6px 0 0 0;padding-left:0;">
+        <li style="margin-bottom:4px;">Refuerzo focal en **Cria_17** durante **🌆 Noche (18:00 - 23:59)** con patrullaje visible y contacto con referentes barriales.</li><li style="margin-bottom:4px;">Prevención situacional en **Domicilio**: iluminación, cierres, cámaras/vecinales y controles dinámicos.</li><li style="margin-bottom:4px;">Alerta temprana: si el **Sábado** supera los límites ±3σ, activar refuerzo por 48 h e intensificar supervisión.</li><li style="margin-bottom:4px;">Coordinación con **Cria_17** para retroalimentar modus operandi y ajustar rutas/cuadrantes.</li><li style="margin-bottom:4px;">Plan de comunicación y presencia selectiva en puntos calientes para disuasión temprana.</li><li style="margin-bottom:4px;">Revisión de aprehensiones y causas recientes para identificar reincidencias y zonas de oportunidad investigativa.</li>
+      </ul>
+      <div style="font-size:11px;color:#777;margin-top:8px;">
+        <em>Nota:</em> “Destacados” considera volumen reciente y dinámica (variación positiva) como referencia operativa.
+      </div>
+    </div>
+  </div>
+          
+
+        </div>
+
+        <div class="footer">
+          <p>📌 Fuente: S.A.T. (Sistema de Análisis Territorial) Intervenciones policiales - JPSD VI</p>
+          <p>📎 A cargo de: Oficina Virtual de análisis estadístico delictivo y operacional - Aux. 2° LUCAS CIMINO JPSD VI - </p>
+          <p>👤 Desarrollador:Of. Ppal. Lic. González Sebastián</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  
