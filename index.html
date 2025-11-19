@@ -1,5 +1,5 @@
 
-  <!DOCTYPE html>
+ <!DOCTYPE html>
     <html>
     <head>
       <title>Análisis Estadístico - JPD Lavalle</title>
@@ -67,8 +67,8 @@
         function drawChartDelitos() {
           var data = google.visualization.arrayToDataTable([
             ['Categoría', 'SEMANAL 1', 'SEMANAL 2'],
-            ['Hurto', 1, 0],
-['Robo', 1, 0]
+            ['Hurto', 2, 0],
+['Robo', 2, 0]
           ]);
           var options = {
             title: 'Análisis estadístico de los Delitos',
@@ -85,8 +85,8 @@
         function drawChartDias() {
           var data = google.visualization.arrayToDataTable([
             ['Categoría', 'SEMANAL 1', 'SEMANAL 2'],
-            ['Lunes', 1, 0],
-['Jueves', 1, 0]
+            ['Lunes', 2, 0],
+['Jueves', 2, 0]
           ]);
           var options = {
             title: 'Análisis por Día de la Semana',
@@ -102,7 +102,7 @@
         function drawChartHorario() {
           var data = google.visualization.arrayToDataTable([
             ['Categoría', 'SEMANAL 1', 'SEMANAL 2'],
-            ['🌤️ Mañana (06:00 - 11:59)', 2, 0]
+            ['🌤️ Mañana (06:00 - 11:59)', 4, 0]
           ]);
           var options = {
             title: 'Análisis por Rango Horario',
@@ -120,7 +120,7 @@
         function drawChartDependencias() {
           var data = google.visualization.arrayToDataTable([
             ['Categoría', 'SEMANAL 1', 'SEMANAL 2'],
-            ['Cria_17', 2, 0]
+            ['Cria_17', 4, 0]
           ]);
           var options = {
             title: 'Análisis por Dependencia',
@@ -137,7 +137,7 @@
         function drawChartLugares() {
           var data = google.visualization.arrayToDataTable([
             ['Categoría', 'SEMANAL 1', 'SEMANAL 2'],
-            ['Domicilio', 2, 0]
+            ['Domicilio', 4, 0]
           ]);
           var options = {
             title: 'Análisis por Tipo de Lugar',
@@ -162,8 +162,8 @@
     <div class="summary-grid">
       <div class="summary-box">
         <div class="summary-title">Total Delitos</div>
-        <div class="summary-value">SEMANAL 1: 2 | SEMANAL 2: 0</div>
-        <div class="variation variation-down">▼ 100% (-2)</div>
+        <div class="summary-value">SEMANAL 1: 4 | SEMANAL 2: 0</div>
+        <div class="variation variation-down">▼ 100% (-4)</div>
       </div>
       <div class="summary-box">
       <div class="summary-title">Indicador de Estabilidad</div>
@@ -194,8 +194,8 @@
       
         <div class="summary-box">
           <div class="summary-title">Lavalle</div>
-          <div class="summary-value">SEMANAL 1: 2 | SEMANAL 2: 0</div>
-          <div class="variation variation-down">▼ 100% (-2)</div>
+          <div class="summary-value">SEMANAL 1: 4 | SEMANAL 2: 0</div>
+          <div class="variation variation-down">▼ 100% (-4)</div>
         </div>
       </div>
         
@@ -215,19 +215,19 @@
         <tbody>
           <tr>
               <td>Hurto</td>
-              <td>1</td>
+              <td>2</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-1)</td>
+              <td class="frio">▼ 100% (-2)</td>
             </tr><tr>
               <td>Robo</td>
-              <td>1</td>
+              <td>2</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-1)</td>
+              <td class="frio">▼ 100% (-2)</td>
             </tr>
         </tbody>
       </table>
     </div>
-    <div class="conclusion">El análisis de delitos muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Hurto (▼ 100% (-1))</strong>.</div>
+    <div class="conclusion">El análisis de delitos muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Hurto (▼ 100% (-2))</strong>.</div>
   
         
     <div class="header">📅 ANÁLISIS POR DÍA DE LA SEMANA</div>
@@ -245,19 +245,19 @@
         <tbody>
           <tr>
               <td>Lunes</td>
-              <td>1</td>
+              <td>2</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-1)</td>
+              <td class="frio">▼ 100% (-2)</td>
             </tr><tr>
               <td>Jueves</td>
-              <td>1</td>
+              <td>2</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-1)</td>
+              <td class="frio">▼ 100% (-2)</td>
             </tr>
         </tbody>
       </table>
     </div>
-    <div class="conclusion">El análisis de días de la semana muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Lunes (▼ 100% (-1))</strong>.</div>
+    <div class="conclusion">El análisis de días de la semana muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Lunes (▼ 100% (-2))</strong>.</div>
   
         
     <div class="header">🕒 ANÁLISIS POR RANGO HORARIO</div>
@@ -275,14 +275,14 @@
         <tbody>
           <tr>
               <td>🌤️ Mañana (06:00 - 11:59)</td>
-              <td>2</td>
+              <td>4</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-2)</td>
+              <td class="frio">▼ 100% (-4)</td>
             </tr>
         </tbody>
       </table>
     </div>
-    <div class="conclusion">El análisis de rangos horarios muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>🌤️ Mañana (06:00 - 11:59) (▼ 100% (-2))</strong>.</div>
+    <div class="conclusion">El análisis de rangos horarios muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>🌤️ Mañana (06:00 - 11:59) (▼ 100% (-4))</strong>.</div>
   
         
     <div class="header">📍 ANÁLISIS POR DEPENDENCIA</div>
@@ -300,14 +300,14 @@
         <tbody>
           <tr>
               <td>Cria_17</td>
-              <td>2</td>
+              <td>4</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-2)</td>
+              <td class="frio">▼ 100% (-4)</td>
             </tr>
         </tbody>
       </table>
     </div>
-    <div class="conclusion">El análisis de dependencias muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Cria_17 (▼ 100% (-2))</strong>.</div>
+    <div class="conclusion">El análisis de dependencias muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Cria_17 (▼ 100% (-4))</strong>.</div>
   
         
     <div class="header">🏠 ANÁLISIS POR TIPO DE LUGAR</div>
@@ -325,14 +325,14 @@
         <tbody>
           <tr>
               <td>Domicilio</td>
-              <td>2</td>
+              <td>4</td>
               <td>0</td>
-              <td class="frio">▼ 100% (-2)</td>
+              <td class="frio">▼ 100% (-4)</td>
             </tr>
         </tbody>
       </table>
     </div>
-    <div class="conclusion">El análisis de tipos de lugar muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Domicilio (▼ 100% (-2))</strong>.</div>
+    <div class="conclusion">El análisis de tipos de lugar muestra una tendencia ▼ 100%. La mayor disminución fue en <strong>Domicilio (▼ 100% (-4))</strong>.</div>
   
 
         <!-- NUEVO: TABLA POR JEFATURA/GRUPO -->
@@ -370,9 +370,9 @@
       </tr>
       <tr>
         <td>Lavalle</td>
-        <td>2</td>
+        <td>4</td>
         <td>0</td>
-        <td class="variation-down">▼ 100% (-2)</td>
+        <td class="variation-down">▼ 100% (-4)</td>
       </tr>
         </tbody>
       </table>
@@ -380,7 +380,7 @@
 
         <hr style="border: 1px solid #eee;">
         <div class="conclusion">
-          <p><strong>🏁 CONCLUSIÓN GENERAL:</strong> En conclusión, el período muestra un/a **disminución (▼ 100% (-2))** en la totalidad de hechos delictivos. Se recomienda prestar especial atención a las tendencias identificadas en los análisis detallados.</p>
+          <p><strong>🏁 CONCLUSIÓN GENERAL:</strong> En conclusión, el período muestra un/a **disminución (▼ 100% (-4))** en la totalidad de hechos delictivos. Se recomienda prestar especial atención a las tendencias identificadas en los análisis detallados.</p>
           
   <div class="header">Diagnóstico automático</div>
   <div style="border:1px solid #ddd;border-radius:8px;padding:14px;background:#fff;margin:10px 0;">
